@@ -17,3 +17,17 @@
 - This bot watches local timeline, which means it won't congratulate other member on different instance. I'm planning an update for members on other instances with follow-back and home timeline. No ETA tho.
 - This bot uses `display_name` to send toot so if `display_name` is not set, it won't work properly. Maybe I should use `username` or something like that?
 - This bot respects and complies to [twingyeo](https://twingyeo.kr)'s rule, please notify [admin](https://twingyeo.kr/@canor) asap if any violation or suspicious behaviour is observed.
+
+------
+
+### TMI
+
+- 본 봇은 가정의 Synology DS216j에서 구동중입니다. 따라서 다소 지연이 있거나 (드물지만) 가정에 인터넷 연결이 중단될 경우 작동하지 않을 수도 있습니다.
+- 로컬에서 구동되기 때문에 트윙여 서버의 시간대와 약간(9시간 또는 8시간) 차이가 있습니다. 이 부분은 최우선 순위로 수정이 될 예정이나 정확한 예정일자는 없습니다.
+
+### Todo
+
+- [ ] 표준 시간대와 일치시키기
+- [ ] `display_name` 이 없을 경우 `username` 으로 fallback하기
+- [ ] 팔로우백 기능
+- [ ] 가입 일자 묻는 멘션에 가입일자 답해주기
