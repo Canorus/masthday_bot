@@ -4,7 +4,7 @@ import os
 
 
 def register(instance):
-    client_name = 'commandline timeline'
+    client_name = 'birthday_bot'
     instance = instance
     if instance[:5] != 'https':
         instance = 'https://'+instance
@@ -104,3 +104,4 @@ def retrieve(username, instance):
                 except:
                     pass
     return access_token
+s_token

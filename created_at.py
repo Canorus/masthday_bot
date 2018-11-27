@@ -3,7 +3,6 @@
 import json
 import requests
 import datetime
-import pytz
 import re
 from random import randint
 
@@ -34,7 +33,6 @@ for l in r_user.iter_lines():
         mode = 0
     if mode:  # event: notification
         try:
-            #print(dec)
             newdec = json.loads(dec.replace('data: ', ''))
             if newdec['account']['bot']:
                 raise
@@ -51,7 +49,7 @@ for l in r_user.iter_lines():
                 reply_to_account = newdec['account']['acct']
                 # if has keyword 계정 + 만들 / 생성
                 if re.search('계정.*((만들)|(만든)|(생성))', newdec['status']['content']) is not None:
-                    # # reply
+                    # reply
                     created_at_server = newdec['account']['created_at'][:-5]
                     c = datetime.datetime.strptime(created_at_server, time_format)
                     status = username+' 님의 계정은 세계표준시각 '+str(c.year)+'년 '+str(c.month)+'월 '+str(c.day)+'일 '+str(c.hour)+'시 '+str(c.minute)+'분 '+str(c.second)+'초에 생성되었어요.'
@@ -64,7 +62,7 @@ for l in r_user.iter_lines():
                 hd['status'] = status
                 hd['in_reply_to_id'] = reply_to_id
                 hd['visibility'] = 'unlisted'
-                requests.post(instance_address+'/api/v1/statuses', headers=head, data=hd)
+                t = requests.post(instance_address+'/api/v1/statuses', headers=head, data=hd)
             elif type == 'follow':
                 # follow back
                 pass
