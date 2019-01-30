@@ -65,7 +65,10 @@ for l in r_user.iter_lines():
             if type == 'mention':
                 human = 0
                 reply_to_id = newdec['status']['id']
-                username = newdec['account']['username']
+                if newdec['account']['display_name']:
+                    username = newdec['account']['display_name']
+                else:
+                    username = newdec['account']['username']
                 reply_to_account = newdec['account']['acct']
                 # if has keyword 계정 + 만들 / 생성
                 if re.search('계정.*((만들)|(만든)|(생성))', newdec['status']['content']) is not None:
