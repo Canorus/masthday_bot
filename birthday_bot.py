@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-
 import json
 import requests
 import csv
 import datetime
 import pytz
+import os
 
-base = '/volume1/homes/canor/scripts/birthday_bot/'
-with open(base+'cred.json') as f:
+base = os.path.dirname(os.path.abspath(__file__))
+with open(base+'/cred.json') as f:
     cred = json.load(f)
 
 acc = cred[0][1]['cred']['access_token']
@@ -18,7 +18,7 @@ time_format = '%Y-%m-%dT%H:%M:%S' # time format declared for reuse
 instance_address = 'https://twingyeo.kr'
 
 # connect to local timeline
-uri_local = 'https://twingyeo.kr/api/v1/streaming/public/local'
+uri_local = instance_address+'/api/v1/streaming/public/local'
 r_local = requests.get(uri_local, headers=head, stream=True)
 print('connected..')
 for l in r_local.iter_lines():
@@ -28,7 +28,7 @@ for l in r_local.iter_lines():
         # strip off unnecessary part
         newdec = json.loads(dec.replace('data: ', ''))
         try:
-            with open(base+'congratulated.txt') as f:
+            with open(base+'/congratulated.txt') as f:
                 for line in f:
                     # bring already congratulated members
                     congs.append(line.replace('\n', ''))
@@ -75,7 +75,7 @@ for l in r_local.iter_lines():
         if dec == ':thump':
             pass
         elif datetime.datetime.today().day != prev:
-            f = open(base+'congratulated.txt', 'w')
+            f = open(base+'/congratulated.txt', 'w')
             f.close()  # new day, new members to congratulate
             prev = datetime.datetime.today().day
         else:
