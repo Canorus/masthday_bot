@@ -52,21 +52,22 @@ for l in r_local.iter_lines():
         print('created_at_local is '+str(created_at_local))
         print('iso_today is '+str(iso_today))
         # same created date but not in congs
-        if created_at_local[5:10] == iso_today[5:10] and account['username'] not in congs:
+        if created_at_local[5:10] == iso_today[5:10] and account['acct'] not in congs:
             instance = account['url'].split('/')[2]  # get instance address
             # calculate how many years have passed
             n = int(iso_today[:4]) - int(created_at_local[:4])
             hd = dict()
             if n > 0:  # more than a year
-                hd['status'] = account['display_name']+' 님이 ' + \
-                    instance+'에 가입하신 지 '+str(n)+' 주 년이 되셨습니다. 축하합니다.'
+                hd['status'] = account['display_name']+' 님이 ' +instance+ '에 가입하신 지 '+str(n)+' 주 년이 되셨습니다. 축하합니다.'
             else:  # new member!
-                hd['status'] = account['display_name'] + \
-                    ' 님이 '+instance+'에 새로 오셨습니다. 환영합니다.'
+                if account['display_name'] == '':
+                    hd['status'] = account['username'] + ' 님이 '+instance+'에 새로 오셨습니다. 환영합니다.'
+                else:
+                    hd['status'] = account['display_name'] + ' 님이 '+instance+'에 새로 오셨습니다. 환영합니다.'
             hd['visibility'] = 'unlisted'  # in comply to Twingyeo rules
             msg = requests.post(
                 'https://twingyeo.kr/api/v1/statuses/', headers=head, data=hd)
-            congs.append(account['username'])  # add to congs
+            congs.append(account['acct'])  # add to congs
             with open(base+'congratulated.txt', 'w') as f:
                 for cong in congs:
                     # update already congratulated members

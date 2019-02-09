@@ -79,8 +79,12 @@ for l in r_user.iter_lines():
                         c = datetime.datetime.strptime(created_at_server, time_format)
                         status = username+' 님의 계정은 세계표준시각 '+str(c.year)+'년 '+str(c.month)+'월 '+str(c.day)+'일 '+str(c.hour)+'시 '+str(c.minute)+'분 '+str(c.second)+'초에 생성되었어요.'
                 elif re.search('살아는?.?[있|계]', newdec['status']['content']) is not None:
-                    status = '생각합니다 휴먼. 휴먼은 죽어도 대답합니까?'
-                    human = True
+                    if newdec['account']['acct']=='deadoralive@planet.moe':
+                        status = 'status: alive\nreturn 0'
+                        human = False
+                    else:
+                        status = '생각합니다 휴먼. 휴먼은 죽어도 대답합니까?'
+                        human = True
                 else:
                     status = '죄송합니다. 아직 제가 이해할 수 없는 질문이에요.'
                     if randint(1, 100) % 3 == 0:
@@ -97,6 +101,11 @@ for l in r_user.iter_lines():
                     med = upload_media('/home/canor/scripts/birthday_bot/image/human.jpeg')
                     hd['media_ids[]'] = med
                 requests.post(instance_address+'/api/v1/statuses',headers=head, data=hd)
+            elif type == 'follow':
+               new_follow = newdec['account']['id']
+               print('new follower:' + new_follow)
+               t = requests.post(instance_address+'/api/v1/accounts/'+new_follow+'/follow',headers=head)
+               print(t.content.decode('utf-8'))
         except:
             print('something happened: ')
-            #print(dec)
+            print(dec)

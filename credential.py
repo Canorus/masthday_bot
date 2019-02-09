@@ -104,4 +104,3 @@ def retrieve(username, instance):
                 except:
                     pass
     return access_token
-s_token

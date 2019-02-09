@@ -28,7 +28,7 @@
 ### Todo
 
 - [x] 표준 시간대와 일치시키기
-- [ ] `display_name` 이 없을 경우 `username` 으로 fallback하기
+- [x] `display_name` 이 없을 경우 `username` 으로 fallback하기
 - [ ] 팔로우백 기능
 - [x] 가입 일자 묻는 멘션에 가입일자 답해주기
-- [ ] 멘션 내용 파악 및 답변 세분화하기
+- [ ] 멘션 내용 파악 및 답변 세분화하기(진중)
