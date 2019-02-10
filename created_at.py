@@ -6,6 +6,7 @@ import datetime
 import re
 from random import randint
 import os
+from pytz import timezone
 
 mode = 0
 
@@ -80,7 +81,8 @@ for l in r_user.iter_lines():
                         status = username+' 님의 계정은 세계표준시각 '+str(c.year)+'년 '+str(c.month)+'월 '+str(c.day)+'일 '+str(c.hour)+'시 '+str(c.minute)+'분 '+str(c.second)+'초에 생성되었어요.'
                 elif re.search('살아는?.?[있|계]', newdec['status']['content']) is not None:
                     if newdec['account']['acct']=='deadoralive@planet.moe':
-                        status = 'status: alive\nreturn 0'
+                        n = datetime.datetime.now(timezone('Asia/Seoul'))
+                        status = '현재 대한민국 서울시는 '+str(n.hour)+'시 '+str(n.minute)+'분 '+str(n.second)+'초 이며 생일봇은 살아있습니다.'
                         human = False
                     else:
                         status = '생각합니다 휴먼. 휴먼은 죽어도 대답합니까?'
