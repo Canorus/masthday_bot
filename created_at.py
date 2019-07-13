@@ -71,9 +71,11 @@ for l in r_user.iter_lines():
                 else:
                     username = newdec['account']['username']
                 reply_to_account = newdec['account']['acct']
-                # if has keyword 계정 + 만들 / 생성
-                if re.search('계정.*((만들)|(만든)|(생성))', newdec['status']['content']) is not None:
-                    if re.search('((만들) |(만든) |(생성)[한|된|시킨])',newdec['status']['content']) is None:
+                # if has keyword
+                if re.search('((파인애플)|(아나나스)).*(입니까)?',newdec['status']['content']) is not None:
+                    status='아나나스입니다'
+                elif re.search('계정.*((만들)|(만든)|(생성))', newdec['status']['content']) is not None:
+                    if re.search('(만들|만든|생성[한|된|시킨]?)$',newdec['status']['content']) is not None:
                         status = '어라 문장이 좀 이상한 것 같아요!!' 
                     else: #reply
                         created_at_server = newdec['account']['created_at'][:-5]
